@@ -6,7 +6,6 @@ Version:        0
 Release:        0.20161034git%{shortcommit}%{?dist}
 Summary:        GUI driver for the TL866 (MiniPRO) chip programmer
 
-Group:          Applications/Engineering
 License:        GPLv3+
 URL:            https://github.com/wd5gnr/qtl866
 Source0:        https://github.com/wd5gnr/qtl866/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz
