@@ -1,51 +1,33 @@
-%global commit 544d42c6f4f56e641f179ba24b638d017e5ab217
+%global commit 1173c3e048c9b777611b379892f397dd5c64a261
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           qtl866
 Version:        0
-Release:        0.20161035git%{shortcommit}%{?dist}
+Release:        0.20170405git%{shortcommit}%{?dist}
 Summary:        GUI driver for the TL866 (MiniPRO) chip programmer
 
 License:        GPLv3+
 URL:            https://github.com/wd5gnr/qtl866
 Source0:        https://github.com/wd5gnr/qtl866/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz
 
-# https://github.com/wd5gnr/qtl866/pull/9
-Patch0:         https://github.com/lkundrak/qtl866/commit/6eb0fd70.patch#/0001-Fix-build.patch
-Patch1:         https://github.com/lkundrak/qtl866/commit/cdcdc2c9.patch#/0002-Fix-a-typo.patch
-Patch2:         https://github.com/lkundrak/qtl866/commit/42d15fb1.patch#/0003-Load-qtparts-on-build.patch
-
-# https://github.com/wd5gnr/qtl866/pull/8
-Patch3:         https://github.com/lkundrak/qtl866/commit/9f7553d4.patch#/0004-Add-a-desktop-file-and-an-icon.patch
-Patch4:         https://github.com/lkundrak/qtl866/commit/7b3f233b.patch#/0005-Add-AppStream-metadata.patch
-
 # Not upstreamable
-Patch5:         https://github.com/lkundrak/qtl866/commit/6a4fe197.patch#/0006-Use-my-clone-in-AppData-for-now.patch
-Patch6:         https://github.com/lkundrak/qtl866/commit/006d5dfa.patch#/0007-Make-it-somehow-work-with-Wayland.patch
+Patch0:         https://github.com/lkundrak/qtl866/commit/006d5dfa.patch#/0007-Make-it-somehow-work-with-Wayland.patch
 
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
-BuildRequires:  git
 Requires:       minipro
 Requires:       bless
 
 %description
-GUI for a programming utility compatible with Minipro TL866CS and Minipro
-TL866A chip programmers. Supports more than 13000 target devices
-(including AVRs, PICs, various BIOSes and EEPROMs).
+GUI for a programming utility compatible with MiniPRO TL866CS, MiniPRO
+TL866A, and XGecu TL866II Plus chip programmers. Supports more than 13000
+target devices (including AVRs, PICs, various BIOSes and EEPROMs).
 
 
 %prep
 %setup -q -n %{name}-%{commit}
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-# The binary patch needs to be applied with git
-git --git-dir=. apply --unsafe-paths --directory=. --apply %{PATCH4}
-%patch5 -p1
-%patch6 -p1
 
 
 %build
@@ -79,6 +61,10 @@ appstream-util --nonet validate-relax %{buildroot}%{_datadir}/appdata/qtl866.app
 
 
 %changelog
+* Sat Mar 30 2019 Aimylios <aimylios@xxx.xx> - 0-0.20170405git1173c3e
+- Update to a newer version
+- Drop upstreamed patches
+
 * Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.20161035git544d42c
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
